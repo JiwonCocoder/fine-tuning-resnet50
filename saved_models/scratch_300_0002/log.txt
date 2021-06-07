@@ -1,0 +1,5 @@
+[2021-06-07 16:36:52,762 WARNING] USE GPU: 0 for training
+[2021-06-07 16:36:58,092 INFO] Number of Trainable Params: 23528522
+[2021-06-07 16:36:58,195 INFO] model_arch: <models.fixmatch.fixmatch.FixMatch object at 0x7f442518b940>
+[2021-06-07 16:36:58,195 INFO] Arguments: Namespace(T=0.5, amp=False, batch_size=16, bn_momentum=0.0010000000000000009, data_dir='/data/samsung', dataset='MLCC', depth=28, dist_backend='nccl', dist_url='tcp://127.0.0.1:10001', distributed=False, dropout=0.0, ema_m=0.999, epoch=1, eval_batch_size=10, gpu=0, hard_label=True, leaky_slope=0.1, load_path=None, lr=0.0002, momentum=0.9, multiprocessing_distributed=False, net='resnet50', net_from_name=True, num_classes=10, num_eval_iter=10, num_labels=300, num_train_iter=100000, num_workers=1, overwrite=False, p_cutoff=0.95, pretrained_from='MLCC_SimCLR', pretrained_model_dir='pretrained_model', rank=0, resume=False, save_dir='./saved_models', save_name='scratch_300_0002', seed=0, train_sampler='RandomSampler', ulb_loss_ratio=1.0, uratio=7, weight_decay=0.0005, widen_factor=2, world_size=1)
+[2021-06-07 16:39:16,974 INFO] [!] data loader keys: dict_keys(['train_lb', 'train_ulb', 'eval'])
