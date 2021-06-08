@@ -16,13 +16,11 @@ from torchvision import datasets, transforms
 mean, std = {}, {}
 mean['cifar10'] = [x / 255 for x in [125.3, 123.0, 113.9]]
 mean['cifar100'] = [x / 255 for x in [129.3, 124.1, 112.4]]
-##Have to be change##
-mean['MLCC'] = [x / 255 for x in [129.3, 124.1, 112.4]]
+mean['MLCC'] = [0.1778, 0.04714, 0.16583]
 
 std['cifar10'] = [x / 255 for x in [63.0, 62.1, 66.7]]
 std['cifar100'] = [x / 255 for x in [68.2,  65.4,  70.4]]
-##Have to be change##
-std['MLCC'] = [x / 255 for x in [68.2,  65.4,  70.4]]
+std['MLCC'] = [0.26870, 0.1002249, 0.273526]
 
 
 def get_transform_cifar(mean, std, train=True):
