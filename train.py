@@ -181,23 +181,33 @@ def main_worker(gpu, ngpus_per_node, args):
 
 
     # Construct Dataset & DataLoader
-    if args.dataset == 'MLCC':
-        train_dset = SSL_Dataset_MLCC(name=args.dataset, train=True,
-                                 num_classes=args.num_classes, data_dir=args.data_dir)
-        #Return lb_dataset, ulb_dataset
-        lb_dset, ulb_dset = train_dset.get_ssl_dset(args.num_labels)
+    if args.fine_tuning == 'semi_supervised':
+        if args.dataset == 'MLCC':
+            train_dset = SSL_Dataset_MLCC(name=args.dataset, train=True,
+                                    num_classes=args.num_classes, data_dir=args.data_dir)
+            #Return lb_dataset, ulb_dataset
+            lb_dset, ulb_dset = train_dset.get_ssl_dset(args.num_labels)
 
-        _eval_dset = SSL_Dataset_MLCC(name=args.dataset, train=False,
-                                 num_classes=args.num_classes, data_dir=args.data_dir)
-        eval_dset = _eval_dset.get_dset()
-    elif args.dataset == 'cifar10':
-        train_dset = SSL_Dataset_CIFAR(name=args.dataset, train=True,
-                                 num_classes=args.num_classes, data_dir=args.data_dir)
-        lb_dset, ulb_dset = train_dset.get_ssl_dset(args.num_labels)
+            _eval_dset = SSL_Dataset_MLCC(name=args.dataset, train=False,
+                                    num_classes=args.num_classes, data_dir=args.data_dir)
+            eval_dset = _eval_dset.get_dset()
+        elif args.dataset == 'cifar10':
+            train_dset = SSL_Dataset_CIFAR(name=args.dataset, train=True,
+                                    num_classes=args.num_classes, data_dir=args.data_dir)
+            lb_dset, ulb_dset = train_dset.get_ssl_dset(args.num_labels)
 
-        _eval_dset = SSL_Dataset_CIFAR(name=args.dataset, train=False,
-                                 num_classes=args.num_classes, data_dir=args.data_dir)
-        eval_dset = _eval_dset.get_dset()
+            _eval_dset = SSL_Dataset_CIFAR(name=args.dataset, train=False,
+                                    num_classes=args.num_classes, data_dir=args.data_dir)
+            eval_dset = _eval_dset.get_dset()
+    elif args.fine_tuning == 'supervised': 
+        if args.dataset == 'MLCC':
+            trainset = torchvision.datasets.ImageFolder(root="./Train", transform=transform_train)
+            testset = torchvision.datasets.ImageFolder(root="./Test", transform=transform_test)
+
+        elif args.dataset == 'cifar10':
+            trainset = datasets.CIFAR10(root='~/data', train=True, download=True, transform=transform_train)
+
+            testset = datasets.CIFAR10(root='~/data', train=False, download=True, transform=transform_test)
 
 
     loader_dict = {}
@@ -301,6 +311,8 @@ if __name__ == "__main__":
                         help='scratch | ImageNet_supervised | ImageNet_SimCLR | CIFAR_SimCLR | MLCC_SimCLR')
     parser.add_argument('--pretrained_model_dir', type=str, default='pretrained_model',
                         help='scratch | ImageNet_supervised | ImageNet_SimCLR | CIFAR_SimCLR | MLCC_SimCLR')
+    parser.add_argument('--fine_tuning', type=str, default= None,
+                        help='supervised | semi_supervised')                        
     '''
     Data Configurations
     '''
@@ -336,4 +348,3 @@ if __name__ == "__main__":
      
     args = parser.parse_args()
     main(args)
-    #myTest sum and mix

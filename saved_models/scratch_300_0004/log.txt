@@ -1,0 +1,2 @@
+[2021-06-08 00:00:51,423 WARNING] USE GPU: 1 for training
+[2021-06-08 00:00:51,925 INFO] Number of Trainable Params: 23528522
